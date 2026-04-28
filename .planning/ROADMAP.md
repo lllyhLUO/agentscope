@@ -10,7 +10,7 @@ documentation.
 
 ## Phases
 
-- [ ] **Phase 1: Registry Foundation** - Define the PostgreSQL schema,
+- [x] **Phase 1: Registry Foundation** - Define the PostgreSQL schema,
   repository layer, and access rules
 - [ ] **Phase 2: Publish Workflow** - Publish local skill directories as
   immutable versioned artifacts
@@ -37,10 +37,10 @@ inside AgentScope
 
 Plans:
 **Wave 1** *(unblocked)*
-- [ ] 01-01: Define registry module structure and persistent models
+- [x] 01-01: Define registry module structure and persistent models
 
 **Wave 2** *(blocked on Wave 1 completion)*
-- [ ] 01-02: Implement repository APIs and connection/config plumbing
+- [x] 01-02: Implement repository APIs and connection/config plumbing
 
 ### Phase 2: Publish Workflow
 **Goal**: Let maintainers publish local skill directories as immutable
@@ -94,7 +94,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Registry Foundation | 0/2 | Not started | - |
+| 1. Registry Foundation | 2/2 | Complete | 2026-04-28 |
 | 2. Publish Workflow | 0/2 | Not started | - |
 | 3. Runtime Loader | 0/2 | Not started | - |
 | 4. Discovery and Hardening | 0/2 | Not started | - |

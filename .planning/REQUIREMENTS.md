@@ -9,11 +9,11 @@ between machines.
 
 ### Registry
 
-- [ ] **REG-01**: System can connect to PostgreSQL and create the registry
+- [x] **REG-01**: System can connect to PostgreSQL and create the registry
   schema needed for skills, versions, files, and maintainers
-- [ ] **REG-02**: System stores each skill as a globally unique name
-- [ ] **REG-03**: System stores each published version as an immutable artifact
-- [ ] **REG-04**: System stores skill contents as individual files per version,
+- [x] **REG-02**: System stores each skill as a globally unique name
+- [x] **REG-03**: System stores each published version as an immutable artifact
+- [x] **REG-04**: System stores skill contents as individual files per version,
   including `SKILL.md`, scripts, and resources
 
 ### Publishing
@@ -44,8 +44,8 @@ between machines.
 
 ### Access and Safety
 
-- [ ] **ACC-01**: All users can read registry contents
-- [ ] **ACC-02**: Only maintainers can publish or update skill records
+- [x] **ACC-01**: All users can read registry contents
+- [x] **ACC-02**: Only maintainers can publish or update skill records
 - [ ] **ACC-03**: Runtime loading never treats the managed cache as the source
   of truth
 
@@ -89,12 +89,12 @@ between machines.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| REG-01 | Phase 1 | Pending |
-| REG-02 | Phase 1 | Pending |
-| REG-03 | Phase 1 | Pending |
-| REG-04 | Phase 1 | Pending |
-| ACC-01 | Phase 1 | Pending |
-| ACC-02 | Phase 1 | Pending |
+| REG-01 | Phase 1 | Complete |
+| REG-02 | Phase 1 | Complete |
+| REG-03 | Phase 1 | Complete |
+| REG-04 | Phase 1 | Complete |
+| ACC-01 | Phase 1 | Complete |
+| ACC-02 | Phase 1 | Complete |
 | ACC-03 | Phase 3 | Pending |
 | PUB-01 | Phase 2 | Pending |
 | PUB-02 | Phase 2 | Pending |
@@ -115,4 +115,4 @@ between machines.
 
 ---
 *Requirements defined: 2026-04-28*
-*Last updated: 2026-04-28 after initial definition*
+*Last updated: 2026-04-28 after Phase 1 completion*
