@@ -21,7 +21,7 @@ Progress: [██░░░░░░░░] 25%
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
+- Total plans completed: 2
 - Average duration: 2 min
 - Total execution time: 0.05 hours
 
