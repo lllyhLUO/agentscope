@@ -73,6 +73,7 @@ tokens = [
 
 # ------------ Memory ------------
 redis_memory = ["redis"]
+skill_registry = ["asyncpg"]
 tablestore_memory = [
     "tablestore-for-agent-memory",
     "tablestore",
@@ -164,6 +165,7 @@ full = [
     "agentscope[models]",
     "agentscope[tokens]",
     "agentscope[memory]",
+    "agentscope[skill_registry]",
     "agentscope[rag]",
     "agentscope[evaluate]",
     "agentscope[realtime]",
