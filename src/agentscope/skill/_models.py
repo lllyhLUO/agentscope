@@ -42,11 +42,7 @@ class _SkillVersionTable(_SkillRegistryBase):
 
     __tablename__ = "skill_versions"
     __table_args__ = (
-        UniqueConstraint(
-            "skill_id",
-            "version",
-            name="uq_skill_versions_skill_id_version",
-        ),
+        UniqueConstraint("skill_id", "version", name="uq_skill_versions_skill_id_version"),
     )
 
     id = Column(String(255), primary_key=True)
@@ -72,11 +68,7 @@ class _SkillFileTable(_SkillRegistryBase):
 
     __tablename__ = "skill_files"
     __table_args__ = (
-        UniqueConstraint(
-            "skill_version_id",
-            "path",
-            name="uq_skill_files_skill_version_id_path",
-        ),
+        UniqueConstraint("skill_version_id", "path", name="uq_skill_files_skill_version_id_path"),
     )
 
     id = Column(String(255), primary_key=True)
