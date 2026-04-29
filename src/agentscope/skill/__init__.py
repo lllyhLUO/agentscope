@@ -7,11 +7,13 @@ from ._publisher import (
     build_skill_publish_manifest,
     publish_skill_directory,
 )
+from ._cache import SkillRuntimeCache
 from ._repository import SkillRegistryRepository
 
 __all__ = [
     "SkillPublishFile",
     "SkillPublishManifest",
+    "SkillRuntimeCache",
     "SkillRegistryRepository",
     "build_skill_publish_manifest",
     "publish_skill_directory",
