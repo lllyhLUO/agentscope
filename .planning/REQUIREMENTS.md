@@ -35,11 +35,11 @@ between machines.
 
 ### Discovery
 
-- [ ] **DISC-01**: User can search skills in PostgreSQL by name or descriptive
+- [x] **DISC-01**: User can search skills in PostgreSQL by name or descriptive
   metadata
-- [ ] **DISC-02**: User can inspect a specific `skill_name@version` and view
+- [x] **DISC-02**: User can inspect a specific `skill_name@version` and view
   its metadata and file list
-- [ ] **DISC-03**: User can pre-install a specific `skill_name@version` into
+- [x] **DISC-03**: User can pre-install a specific `skill_name@version` into
   the managed runtime cache
 
 ### Access and Safety
@@ -51,9 +51,9 @@ between machines.
 
 ### Quality
 
-- [ ] **TST-01**: New registry and loader behavior have unit and integration
+- [x] **TST-01**: New registry and loader behavior have unit and integration
   tests
-- [ ] **DOC-01**: Documentation explains how to publish, search, inspect,
+- [x] **DOC-01**: Documentation explains how to publish, search, inspect,
   install, and load skills from PostgreSQL
 
 ## v2 Requirements
@@ -102,11 +102,11 @@ between machines.
 | RUN-01 | Phase 3 | Complete |
 | RUN-02 | Phase 3 | Complete |
 | RUN-03 | Phase 3 | Complete |
-| DISC-01 | Phase 4 | Pending |
-| DISC-02 | Phase 4 | Pending |
-| DISC-03 | Phase 4 | Pending |
-| TST-01 | Phase 4 | Pending |
-| DOC-01 | Phase 4 | Pending |
+| DISC-01 | Phase 4 | Complete |
+| DISC-02 | Phase 4 | Complete |
+| DISC-03 | Phase 4 | Complete |
+| TST-01 | Phase 4 | Complete |
+| DOC-01 | Phase 4 | Complete |
 
 **Coverage:**
 - v1 requirements: 18 total
@@ -115,4 +115,4 @@ between machines.
 
 ---
 *Requirements defined: 2026-04-28*
-*Last updated: 2026-04-29 after Phase 3 completion*
+*Last updated: 2026-04-29 after Phase 4 completion*

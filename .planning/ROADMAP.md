@@ -16,7 +16,7 @@ documentation.
   immutable versioned artifacts
 - [x] **Phase 3: Runtime Loader** - Load `skill_name@version` through managed
   runtime cache and Toolkit integration
-- [ ] **Phase 4: Discovery and Hardening** - Ship search/show/install flows,
+- [x] **Phase 4: Discovery and Hardening** - Ship search/show/install flows,
   tests, and documentation
 
 ## Phase Details
@@ -94,10 +94,10 @@ install, tests, and docs
 
 Plans:
 **Wave 1** *(unblocked)*
-- [ ] 04-01: Implement search/show/install CLI commands
+- [x] 04-01: Implement search/show/install CLI commands
 
 **Wave 2** *(blocked on Wave 1 completion)*
-- [ ] 04-02: Add tests and end-user documentation
+- [x] 04-02: Add tests and end-user documentation
 
 ## Progress
 
@@ -106,4 +106,4 @@ Plans:
 | 1. Registry Foundation | 2/2 | Complete | 2026-04-28 |
 | 2. Publish Workflow | 2/2 | Complete | 2026-04-29 |
 | 3. Runtime Loader | 2/2 | Complete | 2026-04-29 |
-| 4. Discovery and Hardening | 0/2 | Not started | - |
+| 4. Discovery and Hardening | 2/2 | Complete | 2026-04-29 |
