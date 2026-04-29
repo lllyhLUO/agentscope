@@ -27,10 +27,10 @@ between machines.
 
 ### Runtime Loading
 
-- [ ] **RUN-01**: User can load a skill only by explicit `skill_name@version`
-- [ ] **RUN-02**: System materializes a published skill version into a managed
+- [x] **RUN-01**: User can load a skill only by explicit `skill_name@version`
+- [x] **RUN-02**: System materializes a published skill version into a managed
   runtime cache directory when needed
-- [ ] **RUN-03**: Toolkit can register a PostgreSQL-backed skill through a new
+- [x] **RUN-03**: Toolkit can register a PostgreSQL-backed skill through a new
   registry-aware API without changing the existing local directory API
 
 ### Discovery
@@ -46,7 +46,7 @@ between machines.
 
 - [x] **ACC-01**: All users can read registry contents
 - [x] **ACC-02**: Only maintainers can publish or update skill records
-- [ ] **ACC-03**: Runtime loading never treats the managed cache as the source
+- [x] **ACC-03**: Runtime loading never treats the managed cache as the source
   of truth
 
 ### Quality
@@ -95,13 +95,13 @@ between machines.
 | REG-04 | Phase 1 | Complete |
 | ACC-01 | Phase 1 | Complete |
 | ACC-02 | Phase 1 | Complete |
-| ACC-03 | Phase 3 | Pending |
+| ACC-03 | Phase 3 | Complete |
 | PUB-01 | Phase 2 | Complete |
 | PUB-02 | Phase 2 | Complete |
 | PUB-03 | Phase 2 | Complete |
-| RUN-01 | Phase 3 | Pending |
-| RUN-02 | Phase 3 | Pending |
-| RUN-03 | Phase 3 | Pending |
+| RUN-01 | Phase 3 | Complete |
+| RUN-02 | Phase 3 | Complete |
+| RUN-03 | Phase 3 | Complete |
 | DISC-01 | Phase 4 | Pending |
 | DISC-02 | Phase 4 | Pending |
 | DISC-03 | Phase 4 | Pending |
@@ -115,4 +115,4 @@ between machines.
 
 ---
 *Requirements defined: 2026-04-28*
-*Last updated: 2026-04-29 after Phase 2 completion*
+*Last updated: 2026-04-29 after Phase 3 completion*

@@ -7,23 +7,23 @@ See: .planning/PROJECT.md (updated 2026-04-28)
 **Core value:** Any user can load a shared, versioned AgentScope skill from
 PostgreSQL by explicit version, without manually copying skill directories
 between machines.
-**Current focus:** Phase 3 - Runtime Loader
+**Current focus:** Phase 4 - Discovery and Hardening
 
 ## Current Position
 
-Phase: 3 of 4 (Runtime Loader)
+Phase: 4 of 4 (Discovery and Hardening)
 Plan: 0 of 2 in current phase
-Status: Ready to execute
-Last activity: 2026-04-29 - Planned Phase 3 with 2 execution plans across 2 waves
+Status: Ready to plan
+Last activity: 2026-04-29 - Completed Phase 3 and prepared for Phase 4 planning
 
-Progress: [█████░░░░░] 50%
+Progress: [███████░░░] 75%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
-- Average duration: 3 min
-- Total execution time: 0.18 hours
+- Total plans completed: 6
+- Average duration: 2 min
+- Total execution time: 0.22 hours
 
 **By Phase:**
 
@@ -31,9 +31,10 @@ Progress: [█████░░░░░] 50%
 |-------|-------|-------|----------|
 | 1 | 2 | 3 min | 2 min |
 | 2 | 2 | 8 min | 4 min |
+| 3 | 2 | 2 min | 1 min |
 
 **Recent Trend:**
-- Last 5 plans: 1 min, 7 min, 2 min, 1 min
+- Last 5 plans: 1 min, 1 min, 7 min, 1 min, 2 min
 - Trend: Stable
 
 ## Accumulated Context
@@ -43,9 +44,9 @@ Progress: [█████░░░░░] 50%
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
-- Phase 2: Local skill directories normalize into deterministic publish manifests before persistence
+- Phase 3: Runtime cache hydrates explicit skill versions into real local directories keyed by content hash
+- Phase 3: Toolkit now has a registry-specific loading API that reuses local skill registration
 - Phase 2: Publish workflow rejects conflicting content and treats identical republish as idempotent
-- Phase 1: Repository exposes explicit public-read and maintainer-write boundaries
 
 ### Pending Todos
 
@@ -64,6 +65,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-29 10:40
-Stopped at: Phase 3 planned; ready for `$gsd-execute-phase 3`
+Last session: 2026-04-29 11:05
+Stopped at: Phase 3 complete; next step is `$gsd-plan-phase 4`
 Resume file: None

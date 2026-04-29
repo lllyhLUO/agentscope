@@ -14,7 +14,7 @@ documentation.
   repository layer, and access rules
 - [x] **Phase 2: Publish Workflow** - Publish local skill directories as
   immutable versioned artifacts
-- [ ] **Phase 3: Runtime Loader** - Load `skill_name@version` through managed
+- [x] **Phase 3: Runtime Loader** - Load `skill_name@version` through managed
   runtime cache and Toolkit integration
 - [ ] **Phase 4: Discovery and Hardening** - Ship search/show/install flows,
   tests, and documentation
@@ -75,10 +75,10 @@ keeping PostgreSQL as the source of truth
 
 Plans:
 **Wave 1** *(unblocked)*
-- [ ] 03-01: Implement managed runtime cache
+- [x] 03-01: Implement managed runtime cache
 
 **Wave 2** *(blocked on Wave 1 completion)*
-- [ ] 03-02: Implement registry-aware Toolkit loading path
+- [x] 03-02: Implement registry-aware Toolkit loading path
 
 ### Phase 4: Discovery and Hardening
 **Goal**: Make the workflow usable end-to-end with discovery, inspection,
@@ -102,5 +102,5 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Registry Foundation | 2/2 | Complete | 2026-04-28 |
 | 2. Publish Workflow | 2/2 | Complete | 2026-04-29 |
-| 3. Runtime Loader | 0/2 | Not started | - |
+| 3. Runtime Loader | 2/2 | Complete | 2026-04-29 |
 | 4. Discovery and Hardening | 0/2 | Not started | - |
