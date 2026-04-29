@@ -200,6 +200,9 @@ Homepage = "https://github.com/agentscope-ai/agentscope"
 Documentation = "https://doc.agentscope.io/"
 Repository = "https://github.com/agentscope-ai/agentscope"
 
+[project.scripts]
+agentscope-skill = "agentscope.skill._cli:main"
+
 [tool.setuptools]
 packages = { find = { where = ["src"] } }
 include-package-data = true
