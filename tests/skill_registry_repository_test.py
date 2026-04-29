@@ -236,7 +236,9 @@ class SkillRegistryRepositoryTest(IsolatedAsyncioTestCase):
         session = AsyncSession()
         session.execute = AsyncMock(  # type: ignore[method-assign]
             side_effect=[
+                _ScalarOneResult(self.skill),
                 _ScalarOneResult(self.maintainer.id),
+                _ScalarOneResult(self.skill),
                 _ScalarOneResult(None),
             ],
         )
