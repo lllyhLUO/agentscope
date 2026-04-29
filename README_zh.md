@@ -162,6 +162,34 @@ pip install -e .
 # uv pip install -e .
 ```
 
+### 共享技能注册表
+
+AgentScope 还支持基于 PostgreSQL 的共享技能工作流，适合团队把技能
+发布到统一数据库后复用，而不是手动分发本地技能目录。
+
+先配置可读的注册表连接：
+
+```bash
+export AGENTSCOPE_SKILL_REGISTRY_DATABASE_URL="postgresql+asyncpg://..."
+```
+
+搜索、查看和预热共享技能：
+
+```bash
+agentscope-skill search sql --limit 10
+agentscope-skill show sql_analyzer@1.0.0
+agentscope-skill install sql_analyzer@1.0.0
+```
+
+将共享技能加载到 Toolkit：
+
+```python
+from agentscope.tool import Toolkit
+
+toolkit = Toolkit()
+toolkit.register_registry_skill("sql_analyzer@1.0.0")
+```
+
 ## 样例
 
 ### Hello AgentScope！

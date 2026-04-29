@@ -164,6 +164,35 @@ pip install -e .
 # uv pip install -e .
 ```
 
+### Shared Skill Registry
+
+AgentScope also supports a PostgreSQL-backed shared skill workflow for teams
+that want to publish skills once and consume them without copying local skill
+directories around.
+
+Set a readable registry URL:
+
+```bash
+export AGENTSCOPE_SKILL_REGISTRY_DATABASE_URL="postgresql+asyncpg://..."
+```
+
+Discover and inspect shared skills:
+
+```bash
+agentscope-skill search sql --limit 10
+agentscope-skill show sql_analyzer@1.0.0
+agentscope-skill install sql_analyzer@1.0.0
+```
+
+Load a shared skill into a toolkit:
+
+```python
+from agentscope.tool import Toolkit
+
+toolkit = Toolkit()
+toolkit.register_registry_skill("sql_analyzer@1.0.0")
+```
+
 
 ## Example
 

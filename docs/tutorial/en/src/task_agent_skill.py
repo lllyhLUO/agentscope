@@ -20,6 +20,8 @@ The related APIs are as follows:
       - Description
     * - ``register_agent_skill``
       - Register agent skills from a given directory.
+    * - ``register_registry_skill``
+      - Load a published registry skill by explicit ``skill_name@version``.
     * - ``remove_agent_skill``
       - Remove a registered agent skill by name.
     * - ``get_agent_skill_prompt``
@@ -83,6 +85,29 @@ toolkit = Toolkit()
 toolkit.register_agent_skill("sample_skill")
 
 # %%
+# Registry-backed Agent Skills
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# Besides local directories, AgentScope can also load shared skills from a
+# PostgreSQL-backed registry.
+#
+# .. code-block:: bash
+#
+#   export AGENTSCOPE_SKILL_REGISTRY_DATABASE_URL="postgresql+asyncpg://..."
+#   agentscope-skill search sql --limit 10
+#   agentscope-skill show sql_analyzer@1.0.0
+#   agentscope-skill install sql_analyzer@1.0.0
+#
+# .. code-block:: python
+#
+#   toolkit = Toolkit()
+#   toolkit.register_registry_skill("sql_analyzer@1.0.0")
+#
+# Registry-backed skills still end up using the normal local skill loading path
+# after a managed cache hydration step, so the existing ReAct agent integration
+# remains unchanged.
+#
+# %%
 # After that, we can get the prompt for all registered agent skills using the
 # ``get_agent_skill_prompt`` API
 
@@ -118,7 +143,8 @@ print(agent_skill_prompt)
 #
 # .. important:: When using agent skills, the agent must be equipped with text
 #  file reading or shell command tools to access the skill instructions in
-#  `SKILL.md` files.
+#  `SKILL.md` files. This applies to both local directories and
+#  registry-backed skills.
 #
 
 agent = ReActAgent(

@@ -25,9 +25,31 @@ Then, run the example with:
 python main.py
 ```
 
+## Registry-backed skills
+
+Local directory skills are still the simplest starting point, but AgentScope
+also supports loading published skills from a shared PostgreSQL registry.
+
+Typical workflow:
+
+```bash
+export AGENTSCOPE_SKILL_REGISTRY_DATABASE_URL="postgresql+asyncpg://..."
+agentscope-skill search sql --limit 10
+agentscope-skill show sql_analyzer@1.0.0
+agentscope-skill install sql_analyzer@1.0.0
+```
+
+Then load the shared skill in code:
+
+```python
+from agentscope.tool import Toolkit
+
+toolkit = Toolkit()
+toolkit.register_registry_skill("sql_analyzer@1.0.0")
+```
+
 > Note:
 > - The example is built with DashScope chat model. If you want to change the model used in this example, don't
 > forget to change the formatter at the same time! The corresponding relationship between built-in models and
 > formatters are list in [our tutorial](https://doc.agentscope.io/tutorial/task_prompt.html#id1)
 > - For local models, ensure the model service (like Ollama) is running before starting the agent.
-
