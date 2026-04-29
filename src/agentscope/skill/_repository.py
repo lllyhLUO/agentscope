@@ -60,6 +60,7 @@ class SkillRegistryRepository:
                 "The 'engine_or_session' parameter must be an instance of "
                 "sqlalchemy.ext.asyncio.AsyncEngine or AsyncSession.",
             )
+        self._database_url: str | None = None
 
     @classmethod
     def from_env(
@@ -101,7 +102,9 @@ class SkillRegistryRepository:
                 "the optional dependencies with `agentscope[skill_registry]`.",
             ) from exc
 
-        return cls(engine)
+        repository = cls(engine)
+        repository._database_url = resolved_url
+        return repository
 
     @property
     def session(self) -> AsyncSession:
@@ -130,6 +133,15 @@ class SkillRegistryRepository:
             )
         async with engine.begin() as connection:
             await connection.run_sync(_SkillRegistryBase.metadata.create_all)
+
+    async def close(self) -> None:
+        """Close any open session and dispose the owned engine."""
+        if self._db_session is not None:
+            await self._db_session.close()
+            self._db_session = None
+
+        if self._engine is not None:
+            await self._engine.dispose()
 
     async def get_skill(
         self,

@@ -58,16 +58,24 @@ async def run_publish_command(
         `dict[str, Any]`:
             Publish result.
     """
+    created_repository = repository is None
     resolved_repository = repository or SkillRegistryRepository.from_env(
         args.database_url,
     )
-    return await publish_skill_directory(
-        skill_dir=args.directory,
-        skill_name=args.name,
-        version=args.version,
-        repository=resolved_repository,
-        principal=args.principal,
-    )
+    try:
+        return await publish_skill_directory(
+            skill_dir=args.directory,
+            skill_name=args.name,
+            version=args.version,
+            repository=resolved_repository,
+            principal=args.principal,
+        )
+    finally:
+        if created_repository and isinstance(
+            resolved_repository,
+            SkillRegistryRepository,
+        ):
+            await resolved_repository.close()
 
 
 async def run_search_command(
@@ -86,10 +94,18 @@ async def run_search_command(
         `list[dict[str, Any]]`:
             Search result rows.
     """
+    created_repository = repository is None
     resolved_repository = repository or SkillRegistryRepository.from_env(
         args.database_url,
     )
-    return await resolved_repository.search_skills(args.query, args.limit)
+    try:
+        return await resolved_repository.search_skills(args.query, args.limit)
+    finally:
+        if created_repository and isinstance(
+            resolved_repository,
+            SkillRegistryRepository,
+        ):
+            await resolved_repository.close()
 
 
 async def run_show_command(
@@ -109,21 +125,29 @@ async def run_show_command(
             Version metadata and file list for the explicit skill ref.
     """
     skill_name, version = SkillRuntimeCache.parse_skill_ref(args.skill_ref)
+    created_repository = repository is None
     resolved_repository = repository or SkillRegistryRepository.from_env(
         args.database_url,
     )
-    version_payload = await resolved_repository.get_skill_version(
-        skill_name,
-        version,
-    )
-    if version_payload is None:
-        raise ValueError(f"Registry skill ref '{args.skill_ref}' was not found.")
-    files = await resolved_repository.list_skill_files(skill_name, version)
-    return {
-        "skill_ref": args.skill_ref,
-        "version": version_payload,
-        "files": files,
-    }
+    try:
+        version_payload = await resolved_repository.get_skill_version(
+            skill_name,
+            version,
+        )
+        if version_payload is None:
+            raise ValueError(f"Registry skill ref '{args.skill_ref}' was not found.")
+        files = await resolved_repository.list_skill_files(skill_name, version)
+        return {
+            "skill_ref": args.skill_ref,
+            "version": version_payload,
+            "files": files,
+        }
+    finally:
+        if created_repository and isinstance(
+            resolved_repository,
+            SkillRegistryRepository,
+        ):
+            await resolved_repository.close()
 
 
 async def run_install_command(
@@ -148,20 +172,30 @@ async def run_install_command(
     SkillRuntimeCache.parse_skill_ref(args.skill_ref)
     resolved_repository = repository
     resolved_cache = runtime_cache
+    created_repository = False
     if resolved_cache is None:
-        resolved_repository = resolved_repository or SkillRegistryRepository.from_env(
-            args.database_url,
-        )
+        if resolved_repository is None:
+            resolved_repository = SkillRegistryRepository.from_env(
+                args.database_url,
+            )
+            created_repository = True
         resolved_cache = SkillRuntimeCache(
             repository=resolved_repository,
         )
 
-    hydrated_path = await resolved_cache.hydrate_skill_ref(args.skill_ref)
-    return {
-        "skill_ref": args.skill_ref,
-        "hydrated_path": hydrated_path,
-        "installed": True,
-    }
+    try:
+        hydrated_path = await resolved_cache.hydrate_skill_ref(args.skill_ref)
+        return {
+            "skill_ref": args.skill_ref,
+            "hydrated_path": hydrated_path,
+            "installed": True,
+        }
+    finally:
+        if created_repository and isinstance(
+            resolved_repository,
+            SkillRegistryRepository,
+        ):
+            await resolved_repository.close()
 
 
 def main(argv: list[str] | None = None) -> int:
