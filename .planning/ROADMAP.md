@@ -12,7 +12,7 @@ documentation.
 
 - [x] **Phase 1: Registry Foundation** - Define the PostgreSQL schema,
   repository layer, and access rules
-- [ ] **Phase 2: Publish Workflow** - Publish local skill directories as
+- [x] **Phase 2: Publish Workflow** - Publish local skill directories as
   immutable versioned artifacts
 - [ ] **Phase 3: Runtime Loader** - Load `skill_name@version` through managed
   runtime cache and Toolkit integration
@@ -55,10 +55,10 @@ versioned records in PostgreSQL
 
 Plans:
 **Wave 1** *(unblocked)*
-- [ ] 02-01: Implement skill directory scanner and validator
+- [x] 02-01: Implement skill directory scanner and validator
 
 **Wave 2** *(blocked on Wave 1 completion)*
-- [ ] 02-02: Implement publish/import command path
+- [x] 02-02: Implement publish/import command path
 
 ### Phase 3: Runtime Loader
 **Goal**: Load registry-backed skills into Toolkit by explicit version while
@@ -98,6 +98,6 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Registry Foundation | 2/2 | Complete | 2026-04-28 |
-| 2. Publish Workflow | 0/2 | Not started | - |
+| 2. Publish Workflow | 2/2 | Complete | 2026-04-29 |
 | 3. Runtime Loader | 0/2 | Not started | - |
 | 4. Discovery and Hardening | 0/2 | Not started | - |

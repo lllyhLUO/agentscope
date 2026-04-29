@@ -18,11 +18,11 @@ between machines.
 
 ### Publishing
 
-- [ ] **PUB-01**: Maintainer can publish a local skill directory to PostgreSQL
+- [x] **PUB-01**: Maintainer can publish a local skill directory to PostgreSQL
   using an explicit skill name and version
-- [ ] **PUB-02**: Publish fails if the skill directory does not contain a valid
+- [x] **PUB-02**: Publish fails if the skill directory does not contain a valid
   top-level `SKILL.md`
-- [ ] **PUB-03**: Publish fails if the same `skill_name@version` already exists
+- [x] **PUB-03**: Publish fails if the same `skill_name@version` already exists
   with different content
 
 ### Runtime Loading
@@ -96,9 +96,9 @@ between machines.
 | ACC-01 | Phase 1 | Complete |
 | ACC-02 | Phase 1 | Complete |
 | ACC-03 | Phase 3 | Pending |
-| PUB-01 | Phase 2 | Pending |
-| PUB-02 | Phase 2 | Pending |
-| PUB-03 | Phase 2 | Pending |
+| PUB-01 | Phase 2 | Complete |
+| PUB-02 | Phase 2 | Complete |
+| PUB-03 | Phase 2 | Complete |
 | RUN-01 | Phase 3 | Pending |
 | RUN-02 | Phase 3 | Pending |
 | RUN-03 | Phase 3 | Pending |
@@ -115,4 +115,4 @@ between machines.
 
 ---
 *Requirements defined: 2026-04-28*
-*Last updated: 2026-04-28 after Phase 1 completion*
+*Last updated: 2026-04-29 after Phase 2 completion*
