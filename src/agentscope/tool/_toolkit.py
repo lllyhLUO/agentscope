@@ -1393,6 +1393,28 @@ Check "{dir}/SKILL.md" for how to use this skill"""
             skill_dir,
         )
 
+    def register_registry_skill(
+        self,
+        skill_ref: str,
+        registry_loader: Any = None,
+    ) -> None:
+        """Register an agent skill from the PostgreSQL-backed registry.
+
+        Args:
+            skill_ref (`str`):
+                Explicit skill reference in `skill_name@version` form.
+            registry_loader (`Any`, optional):
+                Optional injected loader. When omitted, the default loader is
+                built from environment configuration.
+        """
+        if registry_loader is None:
+            from ..skill import SkillRegistryLoader
+
+            registry_loader = SkillRegistryLoader.from_env()
+
+        skill_dir = registry_loader.resolve_skill_dir_sync(skill_ref)
+        self.register_agent_skill(skill_dir)
+
     def remove_agent_skill(self, name: str) -> None:
         """Remove an agent skill by its name.
 
