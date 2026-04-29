@@ -74,7 +74,10 @@ keeping PostgreSQL as the source of truth
 **Plans**: 2 plans
 
 Plans:
+**Wave 1** *(unblocked)*
 - [ ] 03-01: Implement managed runtime cache
+
+**Wave 2** *(blocked on Wave 1 completion)*
 - [ ] 03-02: Implement registry-aware Toolkit loading path
 
 ### Phase 4: Discovery and Hardening
