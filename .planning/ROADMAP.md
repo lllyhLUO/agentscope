@@ -54,7 +54,10 @@ versioned records in PostgreSQL
 **Plans**: 2 plans
 
 Plans:
+**Wave 1** *(unblocked)*
 - [ ] 02-01: Implement skill directory scanner and validator
+
+**Wave 2** *(blocked on Wave 1 completion)*
 - [ ] 02-02: Implement publish/import command path
 
 ### Phase 3: Runtime Loader
