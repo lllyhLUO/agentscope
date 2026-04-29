@@ -142,6 +142,61 @@ def build_skill_publish_manifest(
     )
 
 
+async def publish_skill_directory(
+    skill_dir: str | Path,
+    skill_name: str,
+    version: str,
+    repository: Any,
+    principal: str,
+) -> dict[str, Any]:
+    """Publish a validated local skill directory into the registry.
+
+    Args:
+        skill_dir (`str | Path`):
+            Path to the local skill directory.
+        skill_name (`str`):
+            Requested registry skill name.
+        version (`str`):
+            Explicit publish version string.
+        repository (`Any`):
+            Repository-like object providing registry read/write helpers.
+        principal (`str`):
+            Maintainer identity performing the publish.
+
+    Raises:
+        `ValueError`:
+            Raised when the target version already exists with different content.
+
+    Returns:
+        `dict[str, Any]`:
+            Publish result describing whether a new artifact was created or an
+            identical content version was reused.
+    """
+    manifest = build_skill_publish_manifest(skill_dir, skill_name, version)
+    await repository.assert_can_write(skill_name, principal)
+    existing_version = await repository.get_skill_version(skill_name, version)
+    if existing_version is not None:
+        if existing_version["content_hash"] != manifest.content_hash:
+            raise ValueError(
+                "Cannot publish the same skill_name@version with different "
+                f"content: {skill_name}@{version} has different content.",
+            )
+        return {
+            "skill_name": manifest.skill_name,
+            "version": manifest.version,
+            "content_hash": manifest.content_hash,
+            "file_count": len(manifest.files),
+            "created": False,
+            "idempotent": True,
+            "message": "identical content already published",
+        }
+
+    return await repository.create_skill_artifact(
+        manifest=manifest,
+        principal=principal,
+    )
+
+
 def _load_skill_metadata(skill_md_path: Path) -> dict[str, Any]:
     """Load and validate skill frontmatter metadata.
 

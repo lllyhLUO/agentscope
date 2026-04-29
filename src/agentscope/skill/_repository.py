@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """Repository helpers for the skill registry."""
 import os
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
+import shortuuid
 from sqlalchemy import and_, or_, select
 from sqlalchemy.ext.asyncio import (
     AsyncEngine,
@@ -18,6 +19,9 @@ from ._models import (
     _SkillTable,
     _SkillVersionTable,
 )
+
+if TYPE_CHECKING:
+    from ._publisher import SkillPublishManifest
 
 
 class SkillRegistryRepository:
@@ -322,11 +326,98 @@ class SkillRegistryRepository:
             `PermissionError`:
                 Raised when the principal does not have maintainer access.
         """
+        if await self.get_skill(skill_name) is None:
+            return
         if not await self.is_skill_maintainer(skill_name, principal):
             raise PermissionError(
                 f"Principal '{principal}' does not have write access to "
                 f"skill '{skill_name}'.",
             )
+
+    async def create_skill_artifact(
+        self,
+        manifest: "SkillPublishManifest",
+        principal: str,
+    ) -> dict[str, Any]:
+        """Persist a new published skill artifact.
+
+        Args:
+            manifest (`SkillPublishManifest`):
+                Validated publish manifest for the skill directory.
+            principal (`str`):
+                Maintainer identity publishing the artifact.
+
+        Returns:
+            `dict[str, Any]`:
+                Serialized summary of the created artifact.
+        """
+        result = await self.session.execute(
+            select(_SkillTable).filter(_SkillTable.name == manifest.skill_name),
+        )
+        skill_row = result.scalar_one_or_none()
+        created_skill = False
+
+        if skill_row is None:
+            skill_row = _SkillTable(
+                id=shortuuid.uuid(),
+                name=manifest.skill_name,
+                latest_version=manifest.version,
+                status="active",
+                created_by=principal,
+            )
+            self.session.add(skill_row)
+            await self.session.flush()
+            created_skill = True
+        else:
+            skill_row.latest_version = manifest.version
+
+        version_row = _SkillVersionTable(
+            id=shortuuid.uuid(),
+            skill_id=skill_row.id,
+            version=manifest.version,
+            description=manifest.description,
+            metadata_json=manifest.metadata_json,
+            content_hash=manifest.content_hash,
+            published_by=principal,
+        )
+        self.session.add(version_row)
+        await self.session.flush()
+
+        for file_entry in manifest.files:
+            self.session.add(
+                _SkillFileTable(
+                    id=shortuuid.uuid(),
+                    skill_version_id=version_row.id,
+                    path=file_entry.path,
+                    file_type=file_entry.file_type,
+                    content_text=file_entry.content_text,
+                    content_bytes=file_entry.content_bytes,
+                    sha256=file_entry.sha256,
+                    size=file_entry.size,
+                ),
+            )
+
+        if created_skill:
+            self.session.add(
+                _SkillMaintainerTable(
+                    id=shortuuid.uuid(),
+                    skill_id=skill_row.id,
+                    principal=principal,
+                    role="maintainer",
+                ),
+            )
+
+        await self.session.commit()
+
+        return {
+            "skill_name": manifest.skill_name,
+            "version": manifest.version,
+            "content_hash": manifest.content_hash,
+            "file_count": len(manifest.files),
+            "created": True,
+            "idempotent": False,
+            "created_by": principal,
+        }
 
     @staticmethod
     def _serialize_skill(row: _SkillTable) -> dict[str, Any]:
