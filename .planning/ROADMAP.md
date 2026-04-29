@@ -93,7 +93,10 @@ install, tests, and docs
 **Plans**: 2 plans
 
 Plans:
+**Wave 1** *(unblocked)*
 - [ ] 04-01: Implement search/show/install CLI commands
+
+**Wave 2** *(blocked on Wave 1 completion)*
 - [ ] 04-02: Add tests and end-user documentation
 
 ## Progress
