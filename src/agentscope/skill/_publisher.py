@@ -13,7 +13,19 @@ _TRANSIENT_NAMES = {
     ".DS_Store",
 }
 _TRANSIENT_DIR_NAMES = {
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
     "__pycache__",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
 }
 _TRANSIENT_SUFFIXES = {
     ".pyc",
@@ -264,11 +276,25 @@ def _is_transient_path(source_dir: Path, file_path: Path) -> bool:
             `True` when the path is transient local noise.
     """
     relative = file_path.relative_to(source_dir)
+    if any(part.startswith(".") for part in relative.parts):
+        return True
+    if _is_in_nested_git_repository(source_dir, file_path):
+        return True
     if file_path.name in _TRANSIENT_NAMES:
         return True
     if file_path.suffix in _TRANSIENT_SUFFIXES:
         return True
     return any(part in _TRANSIENT_DIR_NAMES for part in relative.parts)
+
+
+def _is_in_nested_git_repository(source_dir: Path, file_path: Path) -> bool:
+    """Check whether a file lives inside a nested git repository."""
+    for parent in file_path.parents:
+        if parent == source_dir:
+            return False
+        if parent.joinpath(".git").is_dir():
+            return True
+    return False
 
 
 def _build_publish_file(

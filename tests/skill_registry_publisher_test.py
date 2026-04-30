@@ -88,6 +88,75 @@ class SkillRegistryPublisherTest(TestCase):
                 ["SKILL.md", "tool.py"],
             )
 
+    def test_repository_and_environment_directories_are_ignored(self) -> None:
+        """Test local repo and environment directories are not published."""
+        with tempfile.TemporaryDirectory() as temp_dir:
+            skill_dir = Path(temp_dir)
+            skill_dir.joinpath("SKILL.md").write_text(
+                "---\nname: sql_analyzer\ndescription: Example\n---\n# Title\n",
+                encoding="utf-8",
+            )
+            skill_dir.joinpath("tool.py").write_text(
+                "print('hello')\n",
+                encoding="utf-8",
+            )
+            for directory_name in [
+                ".git",
+                ".github",
+                ".idea",
+                ".venv",
+                ".pytest_cache",
+                "node_modules",
+            ]:
+                hidden_dir = skill_dir.joinpath(directory_name)
+                hidden_dir.mkdir()
+                hidden_dir.joinpath("artifact.txt").write_text(
+                    "ignored",
+                    encoding="utf-8",
+                )
+            skill_dir.joinpath(".env").write_text(
+                "SECRET=ignored\n",
+                encoding="utf-8",
+            )
+
+            manifest = build_skill_publish_manifest(
+                skill_dir,
+                "sql_analyzer",
+                "1.0.0",
+            )
+
+            self.assertEqual(
+                [item.path for item in manifest.files],
+                ["SKILL.md", "tool.py"],
+            )
+
+    def test_nested_git_repositories_are_ignored(self) -> None:
+        """Test nested repositories are excluded from publish manifests."""
+        with tempfile.TemporaryDirectory() as temp_dir:
+            skill_dir = Path(temp_dir)
+            skill_dir.joinpath("SKILL.md").write_text(
+                "---\nname: sql_analyzer\ndescription: Example\n---\n# Title\n",
+                encoding="utf-8",
+            )
+            nested_repo = skill_dir.joinpath("agent-project")
+            nested_repo.mkdir()
+            nested_repo.joinpath(".git").mkdir()
+            nested_repo.joinpath("README.md").write_text(
+                "# nested repo\n",
+                encoding="utf-8",
+            )
+
+            manifest = build_skill_publish_manifest(
+                skill_dir,
+                "sql_analyzer",
+                "1.0.0",
+            )
+
+            self.assertEqual(
+                [item.path for item in manifest.files],
+                ["SKILL.md"],
+            )
+
     def test_manifest_hash_is_deterministic_and_stably_ordered(self) -> None:
         """Test repeated scans return identical ordered manifests and hashes."""
         with tempfile.TemporaryDirectory() as temp_dir:
