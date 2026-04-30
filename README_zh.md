@@ -190,6 +190,9 @@ toolkit = Toolkit()
 toolkit.register_registry_skill("sql_analyzer@1.0.0")
 ```
 
+完整发布、初始化、使用和排错流程见：
+[PostgreSQL Skill Registry 使用说明](docs/skill-registry-usage-zh.md)
+
 ## 样例
 
 ### Hello AgentScope！
